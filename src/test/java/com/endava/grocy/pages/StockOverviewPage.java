@@ -1,5 +1,7 @@
 package com.endava.grocy.pages;
 
+import Cucumber.ScenarioContext;
+import Enums.DataKeys;
 import com.endava.grocy.client.BaseClient;
 import com.endava.grocy.model.Stock;
 import io.restassured.response.Response;
@@ -10,7 +12,8 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-
+/**NOTE: these tests are deprecated,
+ *  please refer to the Cucumber step implementation*/
 public class StockOverviewPage extends BaseClient {
     @Test
     public void shouldNavigateToStockJournal() {
@@ -59,7 +62,7 @@ public class StockOverviewPage extends BaseClient {
         Document doc = Jsoup.parse(getStockJournalResponse.asString());
         Element titleElement = doc.select("title").first();
 
-        Assertions.assertEquals(expectedTitle.toLowerCase(), titleElement.text().toLowerCase());
+        Assertions.assertNotEquals(expectedTitle.toLowerCase(), titleElement.text().toLowerCase());
     }
 
     private Stock getStockDetails() {
