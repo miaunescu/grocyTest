@@ -45,4 +45,8 @@ public class EnvReader {
     public static String getDBPassword() {
         return properties.getProperty("db.password ");
     }
+
+    public static String geBaseUrl() {
+        return properties.getProperty("baseUrl");
+    }
 }
