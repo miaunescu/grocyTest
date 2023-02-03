@@ -8,8 +8,7 @@ public class EnvReader {
     private static final Properties properties = new Properties();
 
     static {
-        String env = System.getProperty("env");
-        InputStream resourceAsStream = EnvReader.class.getClassLoader().getResourceAsStream("env/" + env + ".properties");
+        InputStream resourceAsStream = EnvReader.class.getClassLoader().getResourceAsStream("env/qa.properties");
         try {
             properties.load(resourceAsStream);
         } catch (IOException e) {
