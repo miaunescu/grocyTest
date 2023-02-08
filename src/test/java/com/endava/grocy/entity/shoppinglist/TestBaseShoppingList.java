@@ -17,7 +17,7 @@ public class TestBaseShoppingList {
     public void setUp(){
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
-        driver.get(EnvReader.geBaseUrl());
+        driver.get(EnvReader.getBaseUrl());
         driver.manage().window().maximize();
 
         Actions actions = new Actions(driver);

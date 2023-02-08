@@ -1,5 +1,6 @@
 package com.endava.grocy.entity.shoppinglist;
 
+import com.endava.grocy.util.EnvReader;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
@@ -18,7 +19,7 @@ public class TestShoppingList extends TestBaseShoppingList {
         String urlStockOverview = driver.getCurrentUrl();
         Assert.assertEquals(urlStockOverview, "http://3.65.154.68:8089/stockoverview");
 
-        driver.findElement(By.xpath("(//a[@class='nav-link discrete-link'])[2]")).click();
+        driver.findElement(By.xpath(EnvReader.getShoppingListOverview())).click();
         String urlShoppingListOverview = driver.getCurrentUrl();
         Assert.assertEquals(urlShoppingListOverview, "http://3.65.154.68:8089/shoppinglist");
 
@@ -29,7 +30,7 @@ public class TestShoppingList extends TestBaseShoppingList {
         String urlStockOverview = driver.getCurrentUrl();
         Assert.assertEquals(urlStockOverview, "http://3.65.154.68:8089/stockoverview");
 
-        driver.findElement(By.xpath("(//a[@class='nav-link discrete-link'])[2]")).click();
+        driver.findElement(By.xpath(EnvReader.getShoppingListOverview())).click();
         String urlShoppingListOverview = driver.getCurrentUrl();
         Assert.assertEquals(urlShoppingListOverview, "http://3.65.154.68:8089/shoppinglist");
 
@@ -50,7 +51,7 @@ public class TestShoppingList extends TestBaseShoppingList {
         String urlStockOverview = driver.getCurrentUrl();
         Assert.assertEquals(urlStockOverview, "http://3.65.154.68:8089/stockoverview");
 
-        driver.findElement(By.xpath("(//a[@class='nav-link discrete-link'])[2]")).click();
+        driver.findElement(By.xpath(EnvReader.getShoppingListOverview())).click();
         String urlShoppingListOverview = driver.getCurrentUrl();
         Assert.assertEquals(urlShoppingListOverview, "http://3.65.154.68:8089/shoppinglist");
 
@@ -63,7 +64,7 @@ public class TestShoppingList extends TestBaseShoppingList {
         String urlStockOverview = driver.getCurrentUrl();
         Assert.assertEquals(urlStockOverview, "http://3.65.154.68:8089/stockoverview");
 
-        driver.findElement(By.xpath("(//a[@class='nav-link discrete-link'])[2]")).click();
+        driver.findElement(By.xpath(EnvReader.getShoppingListOverview())).click();
         String urlShoppingListOverview = driver.getCurrentUrl();
         Assert.assertEquals(urlShoppingListOverview, "http://3.65.154.68:8089/shoppinglist");
         //driver.findElement(By.xpath("//*[@id=\"related-links\"]/a[1]")).click();
@@ -90,7 +91,7 @@ public class TestShoppingList extends TestBaseShoppingList {
         String urlStockOverview = driver.getCurrentUrl();
         Assert.assertEquals(urlStockOverview, "http://3.65.154.68:8089/stockoverview");
 
-        driver.findElement(By.xpath("(//a[@class='nav-link discrete-link'])[2]")).click();
+        driver.findElement(By.xpath(EnvReader.getShoppingListOverview())).click();
         String urlShoppingListOverview = driver.getCurrentUrl();
         Assert.assertEquals(urlShoppingListOverview, "http://3.65.154.68:8089/shoppinglist");
 
