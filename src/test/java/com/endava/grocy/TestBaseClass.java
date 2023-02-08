@@ -10,6 +10,5 @@ public class TestBaseClass {
     protected EntityClient entityClient = new EntityClient();
     protected DataProvider dataProvider = new DataProvider();
     protected GrocyFixture grocyFixture = new GrocyFixture();
-
     protected StockClient stockClient = new StockClient();
 }
