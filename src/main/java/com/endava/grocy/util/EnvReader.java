@@ -74,4 +74,22 @@ public class EnvReader {
     public static String getThreeDots() { return properties.getProperty("threeDots"); }
 
     public static String getNameBattery() { return properties.getProperty("nameBattery"); }
+
+    public static String getStockOverviewLink() { return properties.getProperty("stockOverviewLink"); }
+
+    public static String getBatteriesOverviewLink() { return properties.getProperty("batteriesOverviewLink"); }
+
+    public static String getJournalRedirect() { return properties.getProperty("journalRedirect"); }
+
+    public static String getBatteriesPageLink() { return properties.getProperty("batteriesPageLink"); }
+
+    public static String getBatteryDisable() { return properties.getProperty("batteryDisable"); }
+
+    public static String getShowDisableBatteriesButton() { return properties.getProperty("showDisableBatteriesButton"); }
+
+
+
+
+
+
 }
