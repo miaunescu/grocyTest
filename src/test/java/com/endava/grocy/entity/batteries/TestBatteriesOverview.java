@@ -129,8 +129,8 @@ public class TestBatteriesOverview extends TestBaseBatteriesOverview {
 
         //Make enable the battery
 
-        driver.findElement(By.xpath("//*[@id=\"batteries-table\"]/tbody/tr[5]/td[1]/a[1]")).click();
 
+        driver.findElement(By.xpath(EnvReader.getEditBatteryDisable())).click();
         driver.switchTo().frame(driver.findElement(By.className(EnvReader.getFrameName())));
         Assert.assertEquals(title, driver.findElement(By.cssSelector(EnvReader.getTile())).getText());
 
