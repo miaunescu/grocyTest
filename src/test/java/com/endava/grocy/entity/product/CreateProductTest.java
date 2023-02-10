@@ -2,9 +2,7 @@ package com.endava.grocy.entity.product;
 
 import com.endava.grocy.TestBaseClass;
 import com.endava.grocy.model.EntityType;
-import com.endava.grocy.model.Location;
 import com.endava.grocy.model.Product;
-import com.endava.grocy.model.QuantityUnit;
 import io.restassured.response.Response;
 import org.apache.http.HttpStatus;
 import org.junit.jupiter.api.Test;
@@ -33,7 +31,7 @@ public class CreateProductTest extends TestBaseClass {
 
         Product product = dataProvider.getProduct(locationId, quantityUnitId, quantityUnitId);
         //WHEN
-        Response response = entityClient.createEntity(EntityType.PRODUCT, product);
+        Response response = entityClient.createRequest(EntityType.PRODUCT, product);
         //THEN
         //System.out.println(response.print());
         response.then().statusCode(HttpStatus.SC_OK)

@@ -17,7 +17,7 @@ public class CreateLocationTest extends TestBaseClass {
         Location location = dataProvider.getLocation();
 
         //WHEN
-        Response response = entityClient.createEntity(EntityType.LOCATION, location);
+        Response response = entityClient.createRequest(EntityType.LOCATION, location);
 
         //THEN
         response.then().statusCode(HttpStatus.SC_OK)

@@ -9,7 +9,7 @@ import static io.restassured.RestAssured.given;
 
 public class BaseClient {
 
-    protected RequestSpecification getBasicRestConfig(String basePath) {
+    public RequestSpecification getBasicRestConfig(String basePath) {
         return given().filters(new AuthenticationFilter(), new LogFilter())
                 .baseUri(EnvReader.getBaseUri())
                 .port(EnvReader.getPort())

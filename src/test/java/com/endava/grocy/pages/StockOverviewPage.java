@@ -1,7 +1,5 @@
 package com.endava.grocy.pages;
 
-import Cucumber.ScenarioContext;
-import Enums.DataKeys;
 import com.endava.grocy.client.BaseClient;
 import com.endava.grocy.model.Stock;
 import io.restassured.response.Response;

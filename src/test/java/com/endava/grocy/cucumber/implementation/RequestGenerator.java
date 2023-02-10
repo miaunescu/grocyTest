@@ -1,44 +1,42 @@
-package Cucumber.Implementation;
+package com.endava.grocy.cucumber.implementation;
 
-import Cucumber.ScenarioContext;
-import Enums.DataKeys;
-import io.cucumber.java.en.Given;
+import com.endava.grocy.enums.DataKeys;
+import com.endava.grocy.TestBaseClass;
 import com.endava.grocy.client.BaseClient;
+import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import org.junit.jupiter.api.Assertions;
 
-public class RequestGenerator extends BaseClient {
-    public ScenarioContext scenarioContext = new ScenarioContext();
+public class RequestGenerator extends TestBaseClass {
+    private BaseClient baseClient = new BaseClient();
 
     @Given("basic config for the request is created with base path: {word}")
     public void getBasicRestConfigAndSaveToContext(String basePath) {
-        scenarioContext
-                .setContext(
-                        DataKeys.BASIC_REST_CONFIG,
-                        getBasicRestConfig(basePath));
-
+        scenarioContext.setScenarioContext(
+                DataKeys.BASIC_REST_CONFIG,
+                baseClient.getBasicRestConfig(basePath));
     }
 
     @When("user navigates to {word} endpoint")
     public void createRequestWithGivenEndpoint(String endpoint) {
-        RequestSpecification req = (RequestSpecification) scenarioContext.getContext(DataKeys.BASIC_REST_CONFIG);
+        RequestSpecification req = (RequestSpecification) scenarioContext.getScenarioContext(DataKeys.BASIC_REST_CONFIG);
         Response response = req.get(endpoint);
 
         scenarioContext
-                .setContext(
+                .setScenarioContext(
                         DataKeys.RESPONSE_CODE,
                         response);
     }
 
     @Then("user receives code {int}")
     public void checkResponseCode(Integer expectedResponseCode) {
-        Response actualResponse = (Response) scenarioContext.
-                getContext(DataKeys.RESPONSE_CODE);
+        Integer actualResponse = (Integer) scenarioContext.
+                getScenarioContext(DataKeys.RESPONSE_CODE);
 
-        Assertions.assertEquals(expectedResponseCode, actualResponse.statusCode());
+        Assertions.assertEquals(expectedResponseCode, actualResponse);
     }
 
     @Then("user is on page {string}")
