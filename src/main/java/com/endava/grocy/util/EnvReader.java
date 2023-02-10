@@ -52,4 +52,7 @@ public class EnvReader {
     public static String getShoppingListOverview() {
         return properties.getProperty("shoppingListOverview");
     }
+    public static String getFrameName() {
+        return properties.getProperty("frameName");
+    }
 }

@@ -34,17 +34,31 @@ public class TestShoppingList extends TestBaseShoppingList {
         String urlShoppingListOverview = driver.getCurrentUrl();
         Assert.assertEquals(urlShoppingListOverview, "http://3.65.154.68:8089/shoppinglist");
 
-        driver.findElement(By.xpath("//*[contains(text(), 'Add item')]")).click();
+        driver.findElement(By.xpath("//a[normalize-space()='Add item']")).click();
 
-        driver.findElement(By.xpath("//*[@id=\"product_id_text_input\"]")).click();
-        driver.findElement(By.xpath("//*[@id=\"product_id_text_input\"]")).getText();
+
+        driver.switchTo().frame(driver.findElement(By.className(EnvReader.getFrameName())));
         String textToUpdate = "Cheese";
         Actions actions = new Actions(driver);
-        actions.moveToElement(driver.findElement(By.xpath("//*[@id=\"product_id_text_input\"]")))
+        actions.moveToElement(driver.findElement(By.xpath("//input[@id='product_id_text_input']")))
                 .click()
                 .sendKeys(textToUpdate)
                 .build().perform();
         driver.findElement(By.xpath("//*[@id=\"shoppinglist-form\"]/div[2]/div/div[1]/div/ul/li[1]/a")).click();
+    }
+    @Test
+    public void shouldNotClearList() {
+        String urlStockOverview = driver.getCurrentUrl();
+        Assert.assertEquals(urlStockOverview, "http://3.65.154.68:8089/stockoverview");
+
+        driver.findElement(By.xpath(EnvReader.getShoppingListOverview())).click();
+        String urlShoppingListOverview = driver.getCurrentUrl();
+        Assert.assertEquals(urlShoppingListOverview, "http://3.65.154.68:8089/shoppinglist");
+
+        driver.findElement(By.xpath("//a[@id='clear-shopping-list']")).click();
+        driver.findElement(By.xpath("//button[normalize-space()='No']")).click();
+        driver.switchTo().defaultContent();
+        driver.navigate().refresh();
     }
     @Test
     public void shouldClearList() {
@@ -56,6 +70,7 @@ public class TestShoppingList extends TestBaseShoppingList {
         Assert.assertEquals(urlShoppingListOverview, "http://3.65.154.68:8089/shoppinglist");
 
         driver.findElement(By.xpath("//a[@id='clear-shopping-list']")).click();
+        driver.findElement(By.xpath("//button[normalize-space()='Yes']")).click();
         driver.switchTo().defaultContent();
         driver.navigate().refresh();
     }
