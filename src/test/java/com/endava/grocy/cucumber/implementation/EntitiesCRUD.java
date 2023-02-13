@@ -11,7 +11,7 @@ public class EntitiesCRUD extends TestBaseClass {
 
     EntityClient entityClient = new EntityClient();
 
-    @When("user creates an entity of type {word}")
+    @When("User creates an entity of type {word}")
     public void createEntity(String entityType) {
         switch (entityType) {
             case "LOCATION":
