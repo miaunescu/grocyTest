@@ -55,4 +55,7 @@ public class EnvReader {
     public static String getFrameName() {
         return properties.getProperty("frameName");
     }
+    public static String getFName() {
+        return properties.getProperty("fName");
+    }
 }

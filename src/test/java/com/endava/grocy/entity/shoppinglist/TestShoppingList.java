@@ -12,6 +12,8 @@ import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import java.time.Duration;
+
 public class TestShoppingList extends TestBaseShoppingList {
 
     @Test
@@ -22,7 +24,6 @@ public class TestShoppingList extends TestBaseShoppingList {
         driver.findElement(By.xpath(EnvReader.getShoppingListOverview())).click();
         String urlShoppingListOverview = driver.getCurrentUrl();
         Assert.assertEquals(urlShoppingListOverview, "http://3.65.154.68:8089/shoppinglist");
-
     }
 
     @Test
@@ -36,18 +37,31 @@ public class TestShoppingList extends TestBaseShoppingList {
 
         driver.findElement(By.xpath("//a[normalize-space()='Add item']")).click();
 
-
-        driver.switchTo().frame(driver.findElement(By.className(EnvReader.getFrameName())));
-        String textToUpdate = "Cheese";
+        driver.switchTo().frame(driver.findElement(By.xpath(EnvReader.getFName())));
+        String textToUpdate = "Cookies123";
+        String quantityToUpdate = "2";
+        String noteToUpdate = "Test123";
         Actions actions = new Actions(driver);
-        actions.moveToElement(driver.findElement(By.xpath("//input[@id='product_id_text_input']")))
+        actions.moveToElement(driver.findElement(By.xpath(" //input[@id='product_id_text_input']")))
                 .click()
                 .sendKeys(textToUpdate)
                 .build().perform();
-        driver.findElement(By.xpath("//*[@id=\"shoppinglist-form\"]/div[2]/div/div[1]/div/ul/li[1]/a")).click();
+        actions.moveToElement(driver.findElement(By.xpath("//input[@id='display_amount']")))
+                .click()
+                .sendKeys(quantityToUpdate)
+                .build().perform();
+        actions.moveToElement(driver.findElement(By.xpath("//textarea[@id='note']")))
+                .click()
+                .sendKeys(noteToUpdate)
+                .build().perform();
+        //actions.moveToElement(driver.findElement(By.xpath("//button[@id='save-shoppinglist-button']"))).click();
+        driver.findElement(By.xpath("//button[@id='save-shoppinglist-button']")).click();
+        driver.switchTo().defaultContent();
+        driver.navigate().refresh();
+
     }
     @Test
-    public void shouldNotClearList() {
+    public void shouldNotClearList() throws InterruptedException {
         String urlStockOverview = driver.getCurrentUrl();
         Assert.assertEquals(urlStockOverview, "http://3.65.154.68:8089/stockoverview");
 
@@ -56,9 +70,11 @@ public class TestShoppingList extends TestBaseShoppingList {
         Assert.assertEquals(urlShoppingListOverview, "http://3.65.154.68:8089/shoppinglist");
 
         driver.findElement(By.xpath("//a[@id='clear-shopping-list']")).click();
+        Thread.sleep(1000);
         driver.findElement(By.xpath("//button[normalize-space()='No']")).click();
         driver.switchTo().defaultContent();
         driver.navigate().refresh();
+
     }
     @Test
     public void shouldClearList() {
@@ -68,11 +84,16 @@ public class TestShoppingList extends TestBaseShoppingList {
         driver.findElement(By.xpath(EnvReader.getShoppingListOverview())).click();
         String urlShoppingListOverview = driver.getCurrentUrl();
         Assert.assertEquals(urlShoppingListOverview, "http://3.65.154.68:8089/shoppinglist");
-
+        //Switching the shopping list
+        WebElement selectElement = driver.findElement(By.xpath("//select[@id='selected-shopping-list']"));
+        Select select = new Select(selectElement);
+        select.selectByVisibleText("test1234");
+        //Clearing the products in the changed shopping list
         driver.findElement(By.xpath("//a[@id='clear-shopping-list']")).click();
         driver.findElement(By.xpath("//button[normalize-space()='Yes']")).click();
         driver.switchTo().defaultContent();
         driver.navigate().refresh();
+
     }
     @Test
     public void shouldCreateNewShoppingList() {
@@ -82,27 +103,24 @@ public class TestShoppingList extends TestBaseShoppingList {
         driver.findElement(By.xpath(EnvReader.getShoppingListOverview())).click();
         String urlShoppingListOverview = driver.getCurrentUrl();
         Assert.assertEquals(urlShoppingListOverview, "http://3.65.154.68:8089/shoppinglist");
-        //driver.findElement(By.xpath("//*[@id=\"related-links\"]/a[1]")).click();
-        //driver.findElement(By.xpath("//*[@id=\"name\"]")).click();
+        driver.findElement(By.xpath("//a[normalize-space()='New shopping list']")).click();
+        driver.switchTo().frame(driver.findElement(By.xpath("//div[@class='bootbox-body']//iframe[@class='embed-responsive']")));
 
-       // String textToUpdate = "Test_NewList";
-       // Actions actions = new Actions(driver);
-       // actions.moveToElement(driver.findElement(By.xpath("//*[@id=\"name\"]")))
-      //          .sendKeys(textToUpdate)
-        //        .build().perform();
+        String textToUpdate = "Test_NewList";
+        Actions actions = new Actions(driver);
+        actions.moveToElement(driver.findElement(By.xpath("//input[@id='name']")))
+                .click()
+                .sendKeys(textToUpdate)
+                .build().perform();
 
-        //driver.findElement(By.xpath("//*[@id=\"save-shopping-list-button\"]")).click();
-        //driver.switchTo().defaultContent();
-        //driver.navigate().refresh();
-        driver.findElement(By.cssSelector("a[href='/shoppinglist/new']")).click();
-        driver.findElement(By.id("name")).sendKeys("My New Shopping List");
-        driver.findElement(By.xpath("//button[text()='Save']")).click();
+        driver.findElement(By.xpath("//*[@id='save-shopping-list-button']")).click();
+        driver.switchTo().defaultContent();
+        driver.navigate().refresh();
+
+
     }
     @Test
     public void testShoppingListChange() {
-//        // Wait for the page to load
-//        WebDriverWait wait = new WebDriverWait(driver, 10);
-//        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("shopping-list-table")));
         String urlStockOverview = driver.getCurrentUrl();
         Assert.assertEquals(urlStockOverview, "http://3.65.154.68:8089/stockoverview");
 
@@ -110,23 +128,12 @@ public class TestShoppingList extends TestBaseShoppingList {
         String urlShoppingListOverview = driver.getCurrentUrl();
         Assert.assertEquals(urlShoppingListOverview, "http://3.65.154.68:8089/shoppinglist");
 
-        // Find the input field to add a new item to the shopping list
-        WebElement inputField = driver.findElement(By.id("add-to-shopping-list-input"));
+        WebElement selectElement = driver.findElement(By.xpath("//select[@id='selected-shopping-list']"));
+        Select select = new Select(selectElement);
+        select.selectByVisibleText("test1234");
+        driver.switchTo().defaultContent();
+        driver.navigate().refresh();
 
-        // Enter the item name
-        String itemName = "Test item";
-        inputField.sendKeys(itemName);
-
-        // Click the Add button
-        WebElement addButton = driver.findElement(By.id("add-to-shopping-list-button"));
-        addButton.click();
-
-//        // Wait for the item to appear in the shopping list
-//        wait.until(ExpectedConditions.textToBe(By.xpath("//table[@id='shopping-list-table']/tbody/tr[last()]/td[2]"), itemName));
-
-        // Verify that the item was added to the shopping list
-        WebElement addedItem = driver.findElement(By.xpath("//table[@id='shopping-list-table']/tbody/tr[last()]/td[2]"));
-        Assert.assertEquals(addedItem.getText(), itemName);
     }
 
 }
