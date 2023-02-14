@@ -21,7 +21,6 @@ public class TestBatteriesOverview extends TestBaseBatteriesOverview {
         String urlStockOverview = driver.getCurrentUrl();
         Assert.assertEquals(urlStockOverview, EnvReader.getStockOverviewLink());
 
-
         driver.findElement(By.xpath(EnvReader.getBatteriesOverview())).click();
         String urlBatteriesOverview = driver.getCurrentUrl();
         Assert.assertEquals(urlBatteriesOverview, EnvReader.getBatteriesOverviewLink());
@@ -36,7 +35,6 @@ public class TestBatteriesOverview extends TestBaseBatteriesOverview {
 
         String urlStockOverview = driver.getCurrentUrl();
         Assert.assertEquals(urlStockOverview, EnvReader.getStockOverviewLink());
-
 
         driver.findElement(By.xpath(EnvReader.getBatteriesOverview())).click();
         String urlBatteriesOverview = driver.getCurrentUrl();
@@ -101,7 +99,6 @@ public class TestBatteriesOverview extends TestBaseBatteriesOverview {
         String urlStockOverview = driver.getCurrentUrl();
         Assert.assertEquals(urlStockOverview, EnvReader.getStockOverviewLink());
 
-
         driver.findElement(By.xpath(EnvReader.getBatteriesOverview())).click();
         String urlBatteriesOverview = driver.getCurrentUrl();
         Assert.assertEquals(urlBatteriesOverview, EnvReader.getBatteriesOverviewLink());
@@ -129,7 +126,6 @@ public class TestBatteriesOverview extends TestBaseBatteriesOverview {
 
         //Make enable the battery
 
-
         driver.findElement(By.xpath(EnvReader.getEditBatteryDisable())).click();
         driver.switchTo().frame(driver.findElement(By.className(EnvReader.getFrameName())));
         Assert.assertEquals(title, driver.findElement(By.cssSelector(EnvReader.getTile())).getText());
@@ -139,17 +135,63 @@ public class TestBatteriesOverview extends TestBaseBatteriesOverview {
         driver.switchTo().defaultContent();
         driver.navigate().refresh();
 
-
         driver.findElement(By.xpath(EnvReader.getBatteriesOverview())).click();
         boolean nameBatteryDisable = driver.findElement(By.xpath(EnvReader.getBatteryDisable())).isDisplayed();
         Assert.assertTrue(nameBatteryDisable);
-
 
     }
 
     @Test
     public void shouldAddBattery() {
 
+        String urlStockOverview = driver.getCurrentUrl();
+        Assert.assertEquals(urlStockOverview, EnvReader.getStockOverviewLink());
+
+        driver.navigate().to(EnvReader.getBatteriesPageLink());
+        driver.findElement(By.xpath(EnvReader.getAddButton())).click();
+        driver.switchTo().frame(driver.findElement(By.className(EnvReader.getFrameName())));
+        String title = "Create battery";
+        Assert.assertEquals(title, driver.findElement(By.cssSelector(EnvReader.getTile())).getText());
+
+        driver.findElement(By.xpath(EnvReader.getEditNameBattery())).click();
+        String nameOfTheBattery = RandomStringUtils.randomAlphanumeric(51);
+        Actions actions = new Actions(driver);
+        actions.moveToElement(driver.findElement(By.xpath(EnvReader.getEditNameBattery())))
+                .click()
+                .sendKeys(nameOfTheBattery)
+                .build().perform();
+
+        String descriptionOfTheBattery = RandomStringUtils.randomAlphanumeric(8);
+        actions.moveToElement(driver.findElement(By.xpath(EnvReader.getDescriptionBattery())))
+                .click()
+                .sendKeys(descriptionOfTheBattery)
+                .build().perform();
+
+        String usedInOfTheBattery = RandomStringUtils.randomAlphanumeric(8);
+        actions.moveToElement(driver.findElement(By.xpath(EnvReader.getUsedInBattery())))
+                .click()
+                .sendKeys(usedInOfTheBattery)
+                .build().perform();
+
+        Random random = new Random();
+        int number = random.nextInt(10);
+        String cycleInterval = String.format("%d", number);
+
+        actions.moveToElement(driver.findElement(By.xpath(EnvReader.getChargeInterval())))
+                .click()
+                .sendKeys(Keys.BACK_SPACE)
+                .sendKeys(cycleInterval)
+                .build().perform();
+
+        driver.findElement(By.xpath(EnvReader.getSaveButton())).click();
+        driver.switchTo().defaultContent();
+        driver.navigate().refresh();
+    }
+
+    @Test
+    public void shouldDeleteBattery() {
+
+//Add the battery
         String urlStockOverview = driver.getCurrentUrl();
         Assert.assertEquals(urlStockOverview, EnvReader.getStockOverviewLink());
 
@@ -193,6 +235,13 @@ public class TestBatteriesOverview extends TestBaseBatteriesOverview {
         driver.switchTo().defaultContent();
         driver.navigate().refresh();
 
-    }
+        //Delete the battery
 
+        actions.moveToElement(driver.findElement(By.xpath(EnvReader.getSearchBar())))
+                .click()
+                .sendKeys(nameOfTheBattery)
+                .build().perform();
+
+        driver.findElement(By.xpath(EnvReader.getDeleteButton())).click();
+    }
 }

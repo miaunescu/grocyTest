@@ -89,7 +89,9 @@ public class EnvReader {
 
     public static String getEditBatteryDisable() { return properties.getProperty("editBatteryDisable"); }
 
+    public static String getSearchBar() { return properties.getProperty("searchBar"); }
 
+    public static String getDeleteButton() { return properties.getProperty("deleteButton"); }
 
 
 
