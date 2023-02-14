@@ -8,7 +8,7 @@ import io.restassured.response.Response;
 
 public class EntityClient extends BaseClient {
 
-    public Response createEntity(EntityType entityType, Entity entity) {
+    public Response createRequest(EntityType entityType, Entity entity) {
         return
                 //given().filters(new RequestLoggingFilter(), new ResponseLoggingFilter())
                 getBasicRestConfig(EnvReader.getBasePath())
@@ -18,7 +18,7 @@ public class EntityClient extends BaseClient {
                         .post("/objects/{entity}");
     }
 
-    public Response deleteEntityById(EntityType entityType, Integer productId) {
+    public Response deleteRequest(EntityType entityType, Integer productId) {
         return getBasicRestConfig(EnvReader.getBasePath())
                 .pathParam("entity", entityType)
                 .pathParam("objectId", productId)

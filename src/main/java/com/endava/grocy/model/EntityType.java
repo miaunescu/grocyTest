@@ -3,7 +3,7 @@ package com.endava.grocy.model;
 public enum EntityType {
 
     PRODUCT("products"),
-    CHORE("chores"),
+//    CHORE("chores"),
     LOCATION ("locations"),
     QUANTITY_UNIT ("quantity_units");
 

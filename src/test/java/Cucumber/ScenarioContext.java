@@ -1,6 +1,6 @@
 package Cucumber;
 
-import Enums.DataKeys;
+import com.endava.grocy.enums.DataKeys;
 
 import java.util.*;
 
