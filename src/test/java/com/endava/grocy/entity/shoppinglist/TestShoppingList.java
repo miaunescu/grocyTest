@@ -24,6 +24,7 @@ public class TestShoppingList extends TestBaseShoppingList {
         driver.findElement(By.xpath(EnvReader.getShoppingListOverview())).click();
         String urlShoppingListOverview = driver.getCurrentUrl();
         Assert.assertEquals(urlShoppingListOverview, "http://3.65.154.68:8089/shoppinglist");
+        driver.navigate().to("http://3.65.154.68:8089/stockoverview");
     }
 
     @Test
@@ -58,6 +59,7 @@ public class TestShoppingList extends TestBaseShoppingList {
         driver.findElement(By.xpath("//button[@id='save-shoppinglist-button']")).click();
         driver.switchTo().defaultContent();
         driver.navigate().refresh();
+        driver.navigate().to("http://3.65.154.68:8089/stockoverview");
 
     }
     @Test
@@ -74,10 +76,11 @@ public class TestShoppingList extends TestBaseShoppingList {
         driver.findElement(By.xpath("//button[normalize-space()='No']")).click();
         driver.switchTo().defaultContent();
         driver.navigate().refresh();
+        driver.navigate().to("http://3.65.154.68:8089/stockoverview");
 
     }
     @Test
-    public void shouldClearList() {
+    public void shouldClearList() throws InterruptedException {
         String urlStockOverview = driver.getCurrentUrl();
         Assert.assertEquals(urlStockOverview, "http://3.65.154.68:8089/stockoverview");
 
@@ -90,9 +93,11 @@ public class TestShoppingList extends TestBaseShoppingList {
         select.selectByVisibleText("test1234");
         //Clearing the products in the changed shopping list
         driver.findElement(By.xpath("//a[@id='clear-shopping-list']")).click();
+        Thread.sleep(1000);
         driver.findElement(By.xpath("//button[normalize-space()='Yes']")).click();
         driver.switchTo().defaultContent();
         driver.navigate().refresh();
+        driver.navigate().to("http://3.65.154.68:8089/stockoverview");
 
     }
     @Test
@@ -116,6 +121,7 @@ public class TestShoppingList extends TestBaseShoppingList {
         driver.findElement(By.xpath("//*[@id='save-shopping-list-button']")).click();
         driver.switchTo().defaultContent();
         driver.navigate().refresh();
+        driver.navigate().to("http://3.65.154.68:8089/stockoverview");
 
 
     }
@@ -133,7 +139,7 @@ public class TestShoppingList extends TestBaseShoppingList {
         select.selectByVisibleText("test1234");
         driver.switchTo().defaultContent();
         driver.navigate().refresh();
-
+        driver.navigate().to("http://3.65.154.68:8089/stockoverview");
     }
 
 }
