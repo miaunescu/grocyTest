@@ -16,7 +16,7 @@ public class CreateQuantityUnitTest extends TestBaseClass {
         //GIVEN
         QuantityUnit quantityUnit = dataProvider.getQuantityUnit();
         //WHEN
-        Response response = entityClient.createEntity(EntityType.QUANTITY_UNIT, quantityUnit);
+        Response response = entityClient.createRequest(EntityType.QUANTITY_UNIT, quantityUnit);
         //THEN
         response.then().statusCode(HttpStatus.SC_OK)
                 .body("created_object_id", notNullValue());

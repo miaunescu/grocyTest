@@ -21,16 +21,14 @@ public class GrocyFixture {
 
     public GrocyFixture createEntity(EntityType entityType) {
 
-        Entity entity;
+//        Entity entity;
         switch (entityType) {
             case LOCATION: {
                 location = dataProvider.getLocation();
-                entity = location;
                 break;
             }
             case QUANTITY_UNIT: {
                 quantityUnit = dataProvider.getQuantityUnit();
-                entity = quantityUnit;
                 break;
             }
             case PRODUCT: {
@@ -38,18 +36,23 @@ public class GrocyFixture {
                     throw new IllegalArgumentException("Please create a location first!!!");
                 }
                 product = dataProvider.getProduct(location.getId(), quantityUnit.getId(), quantityUnit.getId());
-                entity = product;
                 break;
             }
+//            case CHORE: {
+//                //TODO: Create Chore class
+//
+//                if (location == null) {
+//                    throw new IllegalArgumentException("Please create a location first!!!");
+//                }
+//                product = dataProvider.getProduct(location.getId(), quantityUnit.getId(), quantityUnit.getId());
+//                entity = chore;
+//                break;
+//            }
             default: {
                 throw new IllegalArgumentException("Don't know how to create " + entityType);
             }
         }
 
-        Response response = entityClient.createEntity(entityType, entity);
-        response.then().statusCode(HttpStatus.SC_OK);
-        int id = response.jsonPath().getInt("created_object_id");
-        entity.setId(id);
 
         return this;
     }
