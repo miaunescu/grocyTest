@@ -67,8 +67,6 @@ public class EnvReader {
 
     public static String getActiveCheck() { return properties.getProperty("activeCheck"); }
 
-    public static String getFrameName() { return properties.getProperty("frameName"); }
-
     public static String getEditBattery() { return properties.getProperty("editBattery"); }
 
     public static String getThreeDots() { return properties.getProperty("threeDots"); }
@@ -96,4 +94,17 @@ public class EnvReader {
 
 
 
+
+    public static String getBaseUrl() {
+        return properties.getProperty("baseUrl");
+    }
+    public static String getShoppingListOverview() {
+        return properties.getProperty("shoppingListOverview");
+    }
+    public static String getFrameName() {
+        return properties.getProperty("frameName");
+    }
+    public static String getFName() {
+        return properties.getProperty("fName");
+    }
 }
