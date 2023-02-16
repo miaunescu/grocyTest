@@ -65,7 +65,6 @@ public class TestBatteriesOverview extends TestBaseBatteriesOverview {
         driver.navigate().refresh();
 
         String nameAfterUpdate = driver.findElement(By.xpath(EnvReader.getNameBattery())).getText();
-        System.out.println(nameAfterUpdate);
         Assert.assertEquals(textToUpdate, nameAfterUpdate);
 
         //Renaming in Baterie_auto
@@ -280,7 +279,6 @@ public class TestBatteriesOverview extends TestBaseBatteriesOverview {
         driver.navigate().refresh();
 
         String usedInAfterUpdate = driver.findElement(By.xpath(EnvReader.getUsedIn())).getText();
-        System.out.println(usedInAfterUpdate);
         Assert.assertEquals(usedInUpdate, usedInAfterUpdate);
 
         //Renaming usedIn in test_auto
@@ -354,4 +352,62 @@ public class TestBatteriesOverview extends TestBaseBatteriesOverview {
         driver.switchTo().defaultContent();
         driver.navigate().refresh();
     }
+
+    @Test
+    public void shouldEditDescriptionBattery() {
+
+        String urlStockOverview = driver.getCurrentUrl();
+        Assert.assertEquals(urlStockOverview, EnvReader.getStockOverviewLink());
+
+        driver.navigate().to(EnvReader.getBatteriesPageLink());
+
+        driver.findElement(By.xpath(EnvReader.getEditBatterySection())).click();
+        driver.switchTo().frame(driver.findElement(By.className(EnvReader.getFrameName())));
+        String title = "Edit battery";
+        Assert.assertEquals(title, driver.findElement(By.cssSelector(EnvReader.getTile())).getText());
+
+        Actions actions = new Actions(driver);
+        String newDescriptionOfTheBattery = RandomStringUtils.randomAlphanumeric(8);
+        driver.findElement(By.xpath(EnvReader.getDescriptionBattery())).click();
+        actions.moveToElement(driver.findElement(By.xpath(EnvReader.getDescriptionBattery())))
+                .click()
+                .keyDown(Keys.CONTROL)
+                .sendKeys("A")
+                .keyUp(Keys.CONTROL)
+                .sendKeys(Keys.DELETE)
+                .sendKeys(newDescriptionOfTheBattery)
+                .build().perform();
+
+        driver.findElement(By.xpath(EnvReader.getSaveButton())).click();
+        driver.switchTo().defaultContent();
+        driver.navigate().refresh();
+
+        String descriptionAfterUpdate = driver.findElement(By.xpath(EnvReader.getDescriptionBatterySection())).getText();
+        Assert.assertEquals(descriptionAfterUpdate, newDescriptionOfTheBattery);
+
+        //Renaming description in descriere_baterie_auto
+
+        String descriptionInitial = "descriere_auto";
+
+        driver.findElement(By.xpath(EnvReader.getEditBatterySection())).click();
+        driver.switchTo().frame(driver.findElement(By.className(EnvReader.getFrameName())));
+
+        driver.findElement(By.xpath(EnvReader.getDescriptionBattery())).click();
+        actions.moveToElement(driver.findElement(By.xpath(EnvReader.getDescriptionBattery())))
+                .click()
+                .keyDown(Keys.CONTROL)
+                .sendKeys("A")
+                .keyUp(Keys.CONTROL)
+                .sendKeys(Keys.DELETE)
+                .sendKeys(descriptionInitial)
+                .build().perform();
+
+        driver.findElement(By.xpath(EnvReader.getSaveButton())).click();
+        driver.switchTo().defaultContent();
+        driver.navigate().refresh();
+
+        String descriptionAfterUpdate2 = driver.findElement(By.xpath(EnvReader.getDescriptionBatterySection())).getText();
+        Assert.assertEquals(descriptionAfterUpdate2, descriptionInitial);
+    }
+
 }

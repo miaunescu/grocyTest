@@ -95,4 +95,9 @@ public class EnvReader {
 
     public static String getUsedIn() { return properties.getProperty("usedIn"); }
 
+    public static String getDescriptionBatterySection() { return properties.getProperty("descriptionBatterySection"); }
+
+    public static String getEditBatterySection() { return properties.getProperty("editBatterySection"); }
+
+
 }
