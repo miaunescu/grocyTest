@@ -93,9 +93,6 @@ public class EnvReader {
 
     public static String getDeleteButton() { return properties.getProperty("deleteButton"); }
 
-
-
-
-
+    public static String getUsedIn() { return properties.getProperty("usedIn"); }
 
 }

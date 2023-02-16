@@ -75,8 +75,8 @@ public class TestBatteriesOverview extends TestBaseBatteriesOverview {
         driver.findElement(By.cssSelector(EnvReader.getEditBattery())).click();
 
         driver.switchTo().frame(driver.findElement(By.className(EnvReader.getFrameName())));
+        driver.findElement(By.xpath(EnvReader.getEditNameBattery())).click();
         actions.moveToElement(driver.findElement(By.xpath(EnvReader.getEditNameBattery())))
-                .click()
                 .keyDown(Keys.CONTROL)
                 .sendKeys("A")
                 .keyUp(Keys.CONTROL)
@@ -161,13 +161,13 @@ public class TestBatteriesOverview extends TestBaseBatteriesOverview {
                 .sendKeys(nameOfTheBattery)
                 .build().perform();
 
-        String descriptionOfTheBattery = RandomStringUtils.randomAlphanumeric(8);
+        String descriptionOfTheBattery = RandomStringUtils.randomAlphanumeric(52);
         actions.moveToElement(driver.findElement(By.xpath(EnvReader.getDescriptionBattery())))
                 .click()
                 .sendKeys(descriptionOfTheBattery)
                 .build().perform();
 
-        String usedInOfTheBattery = RandomStringUtils.randomAlphanumeric(8);
+        String usedInOfTheBattery = RandomStringUtils.randomAlphanumeric(52);
         actions.moveToElement(driver.findElement(By.xpath(EnvReader.getUsedInBattery())))
                 .click()
                 .sendKeys(usedInOfTheBattery)
@@ -191,7 +191,7 @@ public class TestBatteriesOverview extends TestBaseBatteriesOverview {
     @Test
     public void shouldDeleteBattery() {
 
-//Add the battery
+        //Add the battery
         String urlStockOverview = driver.getCurrentUrl();
         Assert.assertEquals(urlStockOverview, EnvReader.getStockOverviewLink());
 
@@ -243,5 +243,115 @@ public class TestBatteriesOverview extends TestBaseBatteriesOverview {
                 .build().perform();
 
         driver.findElement(By.xpath(EnvReader.getDeleteButton())).click();
+    }
+
+    @Test
+    public void shouldEditUsedInOfBattery() {
+
+        String urlStockOverview = driver.getCurrentUrl();
+        Assert.assertEquals(urlStockOverview, EnvReader.getStockOverviewLink());
+
+        driver.findElement(By.xpath(EnvReader.getBatteriesOverview())).click();
+        String urlBatteriesOverview = driver.getCurrentUrl();
+        Assert.assertEquals(urlBatteriesOverview, EnvReader.getBatteriesOverviewLink());
+
+        driver.findElement(By.xpath(EnvReader.getThreeDots())).click();
+        driver.findElement(By.cssSelector(EnvReader.getEditBattery())).click();
+
+        driver.switchTo().frame(driver.findElement(By.className(EnvReader.getFrameName())));
+        String title = "Edit battery";
+        Assert.assertEquals(title, driver.findElement(By.cssSelector(EnvReader.getTile())).getText());
+
+        driver.findElement(By.xpath(EnvReader.getUsedInBattery())).click();
+
+        String usedInUpdate = RandomStringUtils.randomAlphanumeric(8);
+        Actions actions = new Actions(driver);
+        actions.moveToElement(driver.findElement(By.xpath(EnvReader.getUsedInBattery())))
+                .click()
+                .keyDown(Keys.CONTROL)
+                .sendKeys("A")
+                .keyUp(Keys.CONTROL)
+                .sendKeys(Keys.DELETE)
+                .sendKeys(usedInUpdate)
+                .build().perform();
+
+        driver.findElement(By.xpath(EnvReader.getSaveButton())).click();
+        driver.switchTo().defaultContent();
+        driver.navigate().refresh();
+
+        String usedInAfterUpdate = driver.findElement(By.xpath(EnvReader.getUsedIn())).getText();
+        System.out.println(usedInAfterUpdate);
+        Assert.assertEquals(usedInUpdate, usedInAfterUpdate);
+
+        //Renaming usedIn in test_auto
+
+        String usedInInitial = "test_auto";
+        driver.findElement(By.xpath(EnvReader.getThreeDots())).click();
+        driver.findElement(By.cssSelector(EnvReader.getEditBattery())).click();
+
+        driver.switchTo().frame(driver.findElement(By.className(EnvReader.getFrameName())));
+        driver.findElement(By.xpath(EnvReader.getUsedInBattery())).click();
+        actions.moveToElement(driver.findElement(By.xpath(EnvReader.getUsedInBattery())))
+                .keyDown(Keys.CONTROL)
+                .sendKeys("A")
+                .keyUp(Keys.CONTROL)
+                .sendKeys(Keys.DELETE)
+                .sendKeys(usedInInitial)
+                .build().perform();
+
+        driver.findElement(By.xpath(EnvReader.getSaveButton())).click();
+        driver.switchTo().defaultContent();
+        driver.navigate().refresh();
+
+        String usedInAfterUpdate2 = driver.findElement(By.xpath(EnvReader.getUsedIn())).getText();
+        Assert.assertEquals(usedInAfterUpdate2, usedInInitial);
+
+    }
+
+    @Test
+    public void shouldAddBatteryFiftyCharacters() {
+
+        String urlStockOverview = driver.getCurrentUrl();
+        Assert.assertEquals(urlStockOverview, EnvReader.getStockOverviewLink());
+
+        driver.navigate().to(EnvReader.getBatteriesPageLink());
+        driver.findElement(By.xpath(EnvReader.getAddButton())).click();
+        driver.switchTo().frame(driver.findElement(By.className(EnvReader.getFrameName())));
+        String title = "Create battery";
+        Assert.assertEquals(title, driver.findElement(By.cssSelector(EnvReader.getTile())).getText());
+
+        driver.findElement(By.xpath(EnvReader.getEditNameBattery())).click();
+        String nameOfTheBattery = RandomStringUtils.randomAlphanumeric(50);
+        Actions actions = new Actions(driver);
+        actions.moveToElement(driver.findElement(By.xpath(EnvReader.getEditNameBattery())))
+                .click()
+                .sendKeys(nameOfTheBattery)
+                .build().perform();
+
+        String descriptionOfTheBattery = RandomStringUtils.randomAlphanumeric(50);
+        actions.moveToElement(driver.findElement(By.xpath(EnvReader.getDescriptionBattery())))
+                .click()
+                .sendKeys(descriptionOfTheBattery)
+                .build().perform();
+
+        String usedInOfTheBattery = RandomStringUtils.randomAlphanumeric(50);
+        actions.moveToElement(driver.findElement(By.xpath(EnvReader.getUsedInBattery())))
+                .click()
+                .sendKeys(usedInOfTheBattery)
+                .build().perform();
+
+        Random random = new Random();
+        int number = random.nextInt(10);
+        String cycleInterval = String.format("%d", number);
+
+        actions.moveToElement(driver.findElement(By.xpath(EnvReader.getChargeInterval())))
+                .click()
+                .sendKeys(Keys.BACK_SPACE)
+                .sendKeys(cycleInterval)
+                .build().perform();
+
+        driver.findElement(By.xpath(EnvReader.getSaveButton())).click();
+        driver.switchTo().defaultContent();
+        driver.navigate().refresh();
     }
 }
