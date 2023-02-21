@@ -30,7 +30,7 @@ public class DeleteProductTest extends TestBaseClass {
         grocyFixture.createEntity(EntityType.LOCATION)
                 .createEntity(EntityType.QUANTITY_UNIT)
                 .createEntity(EntityType.PRODUCT);
-        Integer id = grocyFixture.getProduct().getId();
+        Long id = grocyFixture.getProduct().getId();
         //WHEN
         Response response = entityClient.deleteRequest(EntityType.PRODUCT, id);
 

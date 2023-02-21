@@ -9,7 +9,7 @@ import lombok.EqualsAndHashCode;
 public abstract class Entity {
 
     @EqualsAndHashCode.Exclude
-    private Integer id;
+    private Long id;
     private String name;
     private String description;
 

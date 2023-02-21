@@ -12,3 +12,8 @@ Feature: Feature to the the stock journal redirect
   Scenario: Check product amount on Stock Overview page
     Given User logs in with the following credentials
       | admin | admin |
+    When User navigates to page "stockoverview"
+    Then User is on 'stockoverview' page
+#    When User waits for 5 seconds
+    Then Information displayed about the current stock are the same as the ones in db
+    When User closes the browser

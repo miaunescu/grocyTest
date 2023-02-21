@@ -7,7 +7,7 @@ public class DataProvider {
 
     private Faker faker = new Faker();
 
-    public Product getProduct(Integer locationId, Integer quantityPurchaseId, Integer quantityStockId) {
+    public Product getProduct(Long locationId, Long quantityPurchaseId, Long quantityStockId) {
         Product product = new Product();
         product.setName(faker.commerce().productName());
         product.setDescription(faker.chuckNorris().fact());

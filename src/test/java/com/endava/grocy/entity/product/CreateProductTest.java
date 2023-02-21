@@ -26,8 +26,8 @@ public class CreateProductTest extends TestBaseClass {
 
         grocyFixture.createEntity(EntityType.LOCATION)
                 .createEntity(EntityType.QUANTITY_UNIT);
-        Integer locationId = grocyFixture.getLocation().getId();
-        Integer quantityUnitId = grocyFixture.getQuantityUnit().getId();
+        Long locationId = grocyFixture.getLocation().getId();
+        Long quantityUnitId = grocyFixture.getQuantityUnit().getId();
 
         Product product = dataProvider.getProduct(locationId, quantityUnitId, quantityUnitId);
         //WHEN

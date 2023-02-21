@@ -18,7 +18,7 @@ public class EntityClient extends BaseClient {
                         .post("/objects/{entity}");
     }
 
-    public Response deleteRequest(EntityType entityType, Integer productId) {
+    public Response deleteRequest(EntityType entityType, Long productId) {
         return getBasicRestConfig(EnvReader.getBasePath())
                 .pathParam("entity", entityType)
                 .pathParam("objectId", productId)
