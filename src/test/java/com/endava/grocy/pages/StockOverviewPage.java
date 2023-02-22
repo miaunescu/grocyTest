@@ -11,17 +11,20 @@ public class StockOverviewPage {
 
     WebDriver driver;
 
-    @FindBy(xpath = "//*[@id=\"page-content\"]/div[1]/div/div[1]/h2[1]")
+    @FindBy(xpath = "//h2[contains(text(),\"Stock overview\")]")
     public WebElement pageTitle;
 
     @FindBy(id = "info-current-stock")
     public WebElement infoCurrentStock;
 
-    @FindBy(xpath = "//*[@id=\"related-links\"]/a[1]")
-    public WebElement journalButton;
+    @FindBy(xpath = "//div//a[contains(text(),'Journal')]")
+    public WebElement buttonJournalButton;
 
-    @FindBy(xpath = "//*[@id=\"related-links\"]/a[2]")
-    public WebElement stockEntries;
+    @FindBy(xpath = "//div//a[contains(text(),'Stock entries')]")
+    public WebElement buttonStockEntries;
+
+    @FindBy(xpath = "//div//a[contains(text(),'Location Content Sheet')]")
+    public WebElement buttonLocationContentSheet;
 
     public StockOverviewPage(WebDriver driver) {
         this.driver = driver;
