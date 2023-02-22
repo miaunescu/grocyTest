@@ -21,14 +21,16 @@ public class GrocyFixture {
 
     public GrocyFixture createEntity(EntityType entityType) {
 
-//        Entity entity;
+        Entity entity;
         switch (entityType) {
             case LOCATION: {
                 location = dataProvider.getLocation();
+                entity = location;
                 break;
             }
             case QUANTITY_UNIT: {
                 quantityUnit = dataProvider.getQuantityUnit();
+                entity = quantityUnit;
                 break;
             }
             case PRODUCT: {
@@ -36,6 +38,7 @@ public class GrocyFixture {
                     throw new IllegalArgumentException("Please create a location first!!!");
                 }
                 product = dataProvider.getProduct(location.getId(), quantityUnit.getId(), quantityUnit.getId());
+                entity = product;
                 break;
             }
 //            case CHORE: {
@@ -53,7 +56,10 @@ public class GrocyFixture {
             }
         }
 
-
+        Response response = entityClient.createRequest(entityType, entity);
+        response.then().statusCode(HttpStatus.SC_OK);
+        long id = response.jsonPath().getLong("created_object_id");
+        entity.setId(id);
         return this;
     }
 }

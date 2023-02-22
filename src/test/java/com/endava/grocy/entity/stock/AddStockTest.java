@@ -19,7 +19,7 @@ public class AddStockTest extends TestBaseClass {
         grocyFixture.createEntity(EntityType.LOCATION)
                 .createEntity(EntityType.QUANTITY_UNIT)
                 .createEntity(EntityType.PRODUCT);
-        Integer productId = grocyFixture.getProduct().getId();
+        Long productId = grocyFixture.getProduct().getId();
         Stock stock = dataProvider.getStock();
         //WHEN
         Response response = stockClient.addStock(productId, stock);
@@ -36,7 +36,7 @@ public class AddStockTest extends TestBaseClass {
         grocyFixture.createEntity(EntityType.LOCATION)
                 .createEntity(EntityType.QUANTITY_UNIT)
                 .createEntity(EntityType.PRODUCT);
-        Integer productId = grocyFixture.getProduct().getId();
+        Long productId = grocyFixture.getProduct().getId();
         Stock stock = dataProvider.getStock();
         stock.setTransactionType(TransactionType.CONSUME);
         //WHEN
@@ -54,7 +54,7 @@ public class AddStockTest extends TestBaseClass {
         grocyFixture.createEntity(EntityType.LOCATION)
                 .createEntity(EntityType.QUANTITY_UNIT)
                 .createEntity(EntityType.PRODUCT);
-        Integer productId = grocyFixture.getProduct().getId();
+        Long productId = grocyFixture.getProduct().getId();
         Stock stock = dataProvider.getStock();
         stock.setAmount(-120.5);
         //WHEN
@@ -72,7 +72,7 @@ public class AddStockTest extends TestBaseClass {
         grocyFixture.createEntity(EntityType.LOCATION)
                 .createEntity(EntityType.QUANTITY_UNIT)
                 .createEntity(EntityType.PRODUCT);
-        Integer productId = grocyFixture.getProduct().getId();
+        Long productId = grocyFixture.getProduct().getId();
         Stock stock = dataProvider.getStock();
         stock.setPrice(-120.5);
         //WHEN
@@ -89,7 +89,7 @@ public class AddStockTest extends TestBaseClass {
         //GIVEN
         Stock stock = dataProvider.getStock();
         //WHEN
-        Response response = stockClient.addStock(Integer.MAX_VALUE, stock);
+        Response response = stockClient.addStock(Long.MAX_VALUE, stock);
         //THEN
         response.then().statusCode(HttpStatus.SC_BAD_REQUEST)
                 .body("error_message", is("Product does not exist or is inactive"));

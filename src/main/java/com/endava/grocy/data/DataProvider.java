@@ -7,9 +7,9 @@ public class DataProvider {
 
     private Faker faker = new Faker();
 
-    public Product getProduct(Integer locationId, Integer quantityPurchaseId, Integer quantityStockId) {
+    public Product getProduct(Long locationId, Long quantityPurchaseId, Long quantityStockId) {
         Product product = new Product();
-        product.setName(faker.commerce().productName());
+        product.setName(faker.commerce().productName() + "-" + faker.number().numberBetween(1, Long.MAX_VALUE));
         product.setDescription(faker.chuckNorris().fact());
         product.setLocationId(locationId);
         product.setMinStockAmount(faker.number().numberBetween(0, 10));
@@ -40,9 +40,9 @@ public class DataProvider {
 
     public Stock getStock() {
         Stock stock = new Stock();
-        stock.setAmount(faker.number().randomDouble(2,0,500));
+        stock.setAmount(faker.number().randomDouble(2, 0, 500));
         stock.setTransactionType(TransactionType.PURCHASE);
-        stock.setPrice(faker.number().randomDouble(2,0,1000));
+        stock.setPrice(faker.number().randomDouble(2, 0, 1000));
 
         return stock;
     }

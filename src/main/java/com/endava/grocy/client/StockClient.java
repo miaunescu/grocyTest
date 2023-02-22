@@ -7,7 +7,7 @@ import io.restassured.response.Response;
 
 public class StockClient extends BaseClient {
 
-    public Response addStock(Integer productId, Stock stock) {
+    public Response addStock(Long productId, Stock stock) {
         return getBasicRestConfig(EnvReader.getBasePath())
                 .contentType(ContentType.JSON)
                 .body(stock)

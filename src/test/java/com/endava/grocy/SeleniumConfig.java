@@ -26,4 +26,8 @@ public class SeleniumConfig {
         return seleniumConfig;
     }
 
+    public void tearDown(){
+        driver.quit();
+    }
+
 }
