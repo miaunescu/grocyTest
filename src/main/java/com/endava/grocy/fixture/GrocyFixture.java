@@ -18,6 +18,8 @@ public class GrocyFixture {
     private QuantityUnit quantityUnit;
     @Getter
     private Product product;
+    @Getter
+    private Response response;
 
     public GrocyFixture createEntity(EntityType entityType) {
 
@@ -26,19 +28,29 @@ public class GrocyFixture {
             case LOCATION: {
                 location = dataProvider.getLocation();
                 entity = location;
+                response = entityClient.createRequest(entityType, entity);
+                entity.setId(response.jsonPath().getLong("created_object_id"));
                 break;
             }
             case QUANTITY_UNIT: {
                 quantityUnit = dataProvider.getQuantityUnit();
                 entity = quantityUnit;
+                entity.setId(entityClient.createRequest(entityType, entity)
+                        .jsonPath().getLong("created_object_id"));
                 break;
             }
             case PRODUCT: {
                 if (location == null) {
-                    throw new IllegalArgumentException("Please create a location first!!!");
+                    this.createEntity(EntityType.LOCATION);
                 }
+                if (quantityUnit == null) {
+                    this.createEntity(EntityType.QUANTITY_UNIT);
+                }
+
                 product = dataProvider.getProduct(location.getId(), quantityUnit.getId(), quantityUnit.getId());
                 entity = product;
+                entity.setId(entityClient.createRequest(entityType, entity)
+                        .jsonPath().getLong("created_object_id"));
                 break;
             }
 //            case CHORE: {
@@ -55,11 +67,6 @@ public class GrocyFixture {
                 throw new IllegalArgumentException("Don't know how to create " + entityType);
             }
         }
-
-        Response response = entityClient.createRequest(entityType, entity);
-        response.then().statusCode(HttpStatus.SC_OK);
-        long id = response.jsonPath().getLong("created_object_id");
-        entity.setId(id);
         return this;
     }
 }
