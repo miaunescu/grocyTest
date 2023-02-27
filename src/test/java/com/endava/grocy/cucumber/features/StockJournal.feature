@@ -8,7 +8,6 @@ Feature: Feature to the the stock journal redirect
     Then User receives code 200
 #    And user is on page "pageName"
 
-  @TestRunner
   Scenario: Check product amount on Stock Overview page
     Given User logs in with the following credentials
       | admin | admin |
