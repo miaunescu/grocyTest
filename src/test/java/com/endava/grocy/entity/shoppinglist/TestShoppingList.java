@@ -225,4 +225,26 @@ public class TestShoppingList extends TestBaseShoppingList {
         driver.navigate().refresh();
 
     }
+    @Test
+    public void markItemDone(){
+        String urlStockOverview = driver.getCurrentUrl();
+        Assert.assertEquals(urlStockOverview, "http://3.65.154.68:8089/stockoverview");
+
+        driver.findElement(By.xpath(EnvReader.getShoppingListOverview())).click();
+        String urlShoppingListOverview = driver.getCurrentUrl();
+        Assert.assertEquals(urlShoppingListOverview, "http://3.65.154.68:8089/shoppinglist");
+        driver.findElement(By.xpath("(//a[@class='btn btn-success btn-sm order-listitem-button'])[1]")).click();
+        driver.navigate().refresh();
+    }
+    @Test
+    public void deleteItem(){
+        String urlStockOverview = driver.getCurrentUrl();
+        Assert.assertEquals(urlStockOverview, "http://3.65.154.68:8089/stockoverview");
+
+        driver.findElement(By.xpath(EnvReader.getShoppingListOverview())).click();
+        String urlShoppingListOverview = driver.getCurrentUrl();
+        Assert.assertEquals(urlShoppingListOverview, "http://3.65.154.68:8089/shoppinglist");
+        driver.findElement(By.xpath("(//i[@class='fa-solid fa-trash'])[1]")).click();
+        driver.navigate().refresh();
+    }
 }
