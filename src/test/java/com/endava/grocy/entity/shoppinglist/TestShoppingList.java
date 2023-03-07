@@ -21,22 +21,22 @@ public class TestShoppingList extends TestBaseShoppingList {
     @Test
     public void shouldShoppingListRedirect(){
         String urlStockOverview = driver.getCurrentUrl();
-        Assert.assertEquals(urlStockOverview, "http://3.65.154.68:8089/stockoverview");
+        Assert.assertEquals(urlStockOverview, EnvReader.getStockOverviewLink());
 
         driver.findElement(By.xpath(EnvReader.getShoppingListOverview())).click();
         String urlShoppingListOverview = driver.getCurrentUrl();
-        Assert.assertEquals(urlShoppingListOverview, "http://3.65.154.68:8089/shoppinglist");
-        driver.navigate().to("http://3.65.154.68:8089/stockoverview");
+        Assert.assertEquals(urlShoppingListOverview, EnvReader.getShoppingListOverviewLink());
+        driver.navigate().to(EnvReader.getStockOverviewLink());
     }
 
     @Test
     public void shouldAddItem(){
         String urlStockOverview = driver.getCurrentUrl();
-        Assert.assertEquals(urlStockOverview, "http://3.65.154.68:8089/stockoverview");
+        Assert.assertEquals(urlStockOverview, EnvReader.getStockOverviewLink());
 
         driver.findElement(By.xpath(EnvReader.getShoppingListOverview())).click();
         String urlShoppingListOverview = driver.getCurrentUrl();
-        Assert.assertEquals(urlShoppingListOverview, "http://3.65.154.68:8089/shoppinglist");
+        Assert.assertEquals(urlShoppingListOverview, EnvReader.getShoppingListOverviewLink());
 
         driver.findElement(By.xpath("//a[normalize-space()='Add item']")).click();
 
@@ -61,34 +61,34 @@ public class TestShoppingList extends TestBaseShoppingList {
         driver.findElement(By.xpath("//button[@id='save-shoppinglist-button']")).click();
         driver.switchTo().defaultContent();
         driver.navigate().refresh();
-        driver.navigate().to("http://3.65.154.68:8089/stockoverview");
+        driver.navigate().to(EnvReader.getStockOverviewLink());
 
     }
     @Test
     public void shouldNotClearList() throws InterruptedException {
         String urlStockOverview = driver.getCurrentUrl();
-        Assert.assertEquals(urlStockOverview, "http://3.65.154.68:8089/stockoverview");
+        Assert.assertEquals(urlStockOverview, EnvReader.getStockOverviewLink());
 
         driver.findElement(By.xpath(EnvReader.getShoppingListOverview())).click();
         String urlShoppingListOverview = driver.getCurrentUrl();
-        Assert.assertEquals(urlShoppingListOverview, "http://3.65.154.68:8089/shoppinglist");
+        Assert.assertEquals(urlShoppingListOverview, EnvReader.getShoppingListOverviewLink());
 
         driver.findElement(By.xpath("//a[@id='clear-shopping-list']")).click();
         Thread.sleep(1000);
         driver.findElement(By.xpath("//button[normalize-space()='No']")).click();
         driver.switchTo().defaultContent();
         driver.navigate().refresh();
-        driver.navigate().to("http://3.65.154.68:8089/stockoverview");
+        driver.navigate().to(EnvReader.getStockOverviewLink());
 
     }
     @Test
     public void shouldClearList() throws InterruptedException {
         String urlStockOverview = driver.getCurrentUrl();
-        Assert.assertEquals(urlStockOverview, "http://3.65.154.68:8089/stockoverview");
+        Assert.assertEquals(urlStockOverview, EnvReader.getStockOverviewLink());
 
         driver.findElement(By.xpath(EnvReader.getShoppingListOverview())).click();
         String urlShoppingListOverview = driver.getCurrentUrl();
-        Assert.assertEquals(urlShoppingListOverview, "http://3.65.154.68:8089/shoppinglist");
+        Assert.assertEquals(urlShoppingListOverview, EnvReader.getShoppingListOverviewLink());
         //Switching the shopping list
         WebElement selectElement = driver.findElement(By.xpath("//select[@id='selected-shopping-list']"));
         Select select = new Select(selectElement);
@@ -101,17 +101,17 @@ public class TestShoppingList extends TestBaseShoppingList {
         driver.findElement(By.xpath("//button[normalize-space()='Yes']")).click();
         driver.switchTo().defaultContent();
         driver.navigate().refresh();
-        driver.navigate().to("http://3.65.154.68:8089/stockoverview");
+        driver.navigate().to(EnvReader.getStockOverviewLink());
 
     }
     @Test
     public void shouldCreateNewShoppingList() {
         String urlStockOverview = driver.getCurrentUrl();
-        Assert.assertEquals(urlStockOverview, "http://3.65.154.68:8089/stockoverview");
+        Assert.assertEquals(urlStockOverview, EnvReader.getStockOverviewLink());
 
         driver.findElement(By.xpath(EnvReader.getShoppingListOverview())).click();
         String urlShoppingListOverview = driver.getCurrentUrl();
-        Assert.assertEquals(urlShoppingListOverview, "http://3.65.154.68:8089/shoppinglist");
+        Assert.assertEquals(urlShoppingListOverview, EnvReader.getShoppingListOverviewLink());
         driver.findElement(By.xpath("//a[normalize-space()='New shopping list']")).click();
         driver.switchTo().frame(driver.findElement(By.xpath("//div[@class='bootbox-body']//iframe[@class='embed-responsive']")));
 
@@ -125,34 +125,34 @@ public class TestShoppingList extends TestBaseShoppingList {
         driver.findElement(By.xpath("//*[@id='save-shopping-list-button']")).click();
         driver.switchTo().defaultContent();
         driver.navigate().refresh();
-        driver.navigate().to("http://3.65.154.68:8089/stockoverview");
+        driver.navigate().to(EnvReader.getStockOverviewLink());
 
 
     }
     @Test
     public void testShoppingListChange() {
         String urlStockOverview = driver.getCurrentUrl();
-        Assert.assertEquals(urlStockOverview, "http://3.65.154.68:8089/stockoverview");
+        Assert.assertEquals(urlStockOverview, EnvReader.getStockOverviewLink());
 
         driver.findElement(By.xpath(EnvReader.getShoppingListOverview())).click();
         String urlShoppingListOverview = driver.getCurrentUrl();
-        Assert.assertEquals(urlShoppingListOverview, "http://3.65.154.68:8089/shoppinglist");
+        Assert.assertEquals(urlShoppingListOverview, EnvReader.getShoppingListOverviewLink());
 
         WebElement selectElement = driver.findElement(By.xpath("//select[@id='selected-shopping-list']"));
         Select select = new Select(selectElement);
         select.selectByVisibleText("test1234");
         driver.switchTo().defaultContent();
         driver.navigate().refresh();
-        driver.navigate().to("http://3.65.154.68:8089/stockoverview");
+        driver.navigate().to(EnvReader.getStockOverviewLink());
     }
     @Test
     public void testSearchBar(){
         String urlStockOverview = driver.getCurrentUrl();
-        Assert.assertEquals(urlStockOverview, "http://3.65.154.68:8089/stockoverview");
+        Assert.assertEquals(urlStockOverview, EnvReader.getStockOverviewLink());
 
         driver.findElement(By.xpath(EnvReader.getShoppingListOverview())).click();
         String urlShoppingListOverview = driver.getCurrentUrl();
-        Assert.assertEquals(urlShoppingListOverview, "http://3.65.154.68:8089/shoppinglist");
+        Assert.assertEquals(urlShoppingListOverview, EnvReader.getShoppingListOverviewLink());
         String textToSearch = "fanta";
         Actions actions = new Actions(driver);
         actions.moveToElement(driver.findElement(By.xpath("//input[@id='search']")))
@@ -167,11 +167,11 @@ public class TestShoppingList extends TestBaseShoppingList {
     @Test
     public void testEditListName(){
         String urlStockOverview = driver.getCurrentUrl();
-        Assert.assertEquals(urlStockOverview, "http://3.65.154.68:8089/stockoverview");
+        Assert.assertEquals(urlStockOverview, EnvReader.getStockOverviewLink());
 
         driver.findElement(By.xpath(EnvReader.getShoppingListOverview())).click();
         String urlShoppingListOverview = driver.getCurrentUrl();
-        Assert.assertEquals(urlShoppingListOverview, "http://3.65.154.68:8089/shoppinglist");
+        Assert.assertEquals(urlShoppingListOverview, EnvReader.getShoppingListOverviewLink());
         String nameToChange = "shoppingListNewName";
         WebElement selectElement = driver.findElement(By.xpath("//select[@id='selected-shopping-list']"));
         Select select = new Select(selectElement);
@@ -195,11 +195,11 @@ public class TestShoppingList extends TestBaseShoppingList {
     @Test
     public void shouldNotDeleteShoppingList(){
         String urlStockOverview = driver.getCurrentUrl();
-        Assert.assertEquals(urlStockOverview, "http://3.65.154.68:8089/stockoverview");
+        Assert.assertEquals(urlStockOverview, EnvReader.getStockOverviewLink());
 
         driver.findElement(By.xpath(EnvReader.getShoppingListOverview())).click();
         String urlShoppingListOverview = driver.getCurrentUrl();
-        Assert.assertEquals(urlShoppingListOverview, "http://3.65.154.68:8089/shoppinglist");
+        Assert.assertEquals(urlShoppingListOverview, EnvReader.getShoppingListOverviewLink());
         WebElement selectElement = driver.findElement(By.xpath("//select[@id='selected-shopping-list']"));
         Select select = new Select(selectElement);
         select.selectByIndex(4);
@@ -211,11 +211,11 @@ public class TestShoppingList extends TestBaseShoppingList {
     @Test
     public void shouldDeleteShoppingList() throws InterruptedException{
         String urlStockOverview = driver.getCurrentUrl();
-        Assert.assertEquals(urlStockOverview, "http://3.65.154.68:8089/stockoverview");
+        Assert.assertEquals(urlStockOverview, EnvReader.getStockOverviewLink());
 
         driver.findElement(By.xpath(EnvReader.getShoppingListOverview())).click();
         String urlShoppingListOverview = driver.getCurrentUrl();
-        Assert.assertEquals(urlShoppingListOverview, "http://3.65.154.68:8089/shoppinglist");
+        Assert.assertEquals(urlShoppingListOverview, EnvReader.getShoppingListOverviewLink());
         WebElement selectElement = driver.findElement(By.xpath("//select[@id='selected-shopping-list']"));
         Select select = new Select(selectElement);
         select.selectByIndex(4);
@@ -228,34 +228,34 @@ public class TestShoppingList extends TestBaseShoppingList {
     @Test
     public void markItemDone(){
         String urlStockOverview = driver.getCurrentUrl();
-        Assert.assertEquals(urlStockOverview, "http://3.65.154.68:8089/stockoverview");
+        Assert.assertEquals(urlStockOverview, EnvReader.getStockOverviewLink());
 
         driver.findElement(By.xpath(EnvReader.getShoppingListOverview())).click();
         String urlShoppingListOverview = driver.getCurrentUrl();
-        Assert.assertEquals(urlShoppingListOverview, "http://3.65.154.68:8089/shoppinglist");
-        driver.findElement(By.xpath("(//a[@class='btn btn-success btn-sm order-listitem-button'])[1]")).click();
+        Assert.assertEquals(urlShoppingListOverview, EnvReader.getShoppingListOverviewLink());
+        driver.findElement(By.xpath(EnvReader.getCheckMarkButton())).click();
         driver.navigate().refresh();
     }
     @Test
     public void deleteItem(){
         String urlStockOverview = driver.getCurrentUrl();
-        Assert.assertEquals(urlStockOverview, "http://3.65.154.68:8089/stockoverview");
+        Assert.assertEquals(urlStockOverview, EnvReader.getStockOverviewLink());
 
         driver.findElement(By.xpath(EnvReader.getShoppingListOverview())).click();
         String urlShoppingListOverview = driver.getCurrentUrl();
-        Assert.assertEquals(urlShoppingListOverview, "http://3.65.154.68:8089/shoppinglist");
-        driver.findElement(By.xpath("(//i[@class='fa-solid fa-trash'])[1]")).click();
+        Assert.assertEquals(urlShoppingListOverview, EnvReader.getShoppingListOverviewLink());
+        driver.findElement(By.xpath(EnvReader.getDeleteButton())).click();
         driver.navigate().refresh();
     }
     @Test
-    public void addItemToStock(){
+    public void addItemToStockButton(){
         String urlStockOverview = driver.getCurrentUrl();
-        Assert.assertEquals(urlStockOverview, "http://3.65.154.68:8089/stockoverview");
+        Assert.assertEquals(urlStockOverview, EnvReader.getStockOverviewLink());
 
         driver.findElement(By.xpath(EnvReader.getShoppingListOverview())).click();
         String urlShoppingListOverview = driver.getCurrentUrl();
-        Assert.assertEquals(urlShoppingListOverview, "http://3.65.154.68:8089/shoppinglist");
-        driver.findElement(By.xpath("(//i[contains(@class,'fa-solid fa-box')])[4]")).click();
+        Assert.assertEquals(urlShoppingListOverview, EnvReader.getShoppingListOverviewLink());
+        driver.findElement(By.xpath(EnvReader.getAddToStockButton())).click();
         driver.navigate().refresh();
     }
 }

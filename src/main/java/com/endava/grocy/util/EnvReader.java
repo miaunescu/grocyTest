@@ -101,6 +101,10 @@ public class EnvReader {
     public static String getShoppingListOverview() {
         return properties.getProperty("shoppingListOverview");
     }
+    public static String getShoppingListOverviewLink(){ return properties.getProperty("shoppingListOverviewLink");}
+    public static String getCheckMarkButton(){return properties.getProperty("checkMarkButton");}
+    public static String getDeleteButton(){return properties.getProperty("deleteButton");}
+    public static String getAddToStockButton(){return properties.getProperty("addToStockButton");}
     public static String getFrameName() {
         return properties.getProperty("frameName");
     }
